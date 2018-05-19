@@ -9,6 +9,9 @@ services:
       - "80:80"
     depends_on:
       - php
+    environment:
+      - MYSQL_USER=${ENV_MYSQL_USER}
+      - MYSQL_PASS=${ENV_MYSQL_PASS}
 
   # Application service layer
   php:
@@ -21,9 +24,6 @@ services:
       - "9000:9000"
     depends_on:
       - mysql
-    environment:
-      - MYSQL_USER=${ENV_MYSQL_USER}
-      - MYSQL_PASS=${ENV_MYSQL_PASS}
   
   # Data persistence service layer
   mysql:

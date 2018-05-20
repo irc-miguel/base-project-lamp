@@ -1,18 +1,5 @@
 version: "3" 
 services:
-  # Web service layer
-  web:
-    image: php:7.1.17-apache
-    volumes:
-      - "./app:/var/www/html"
-    ports:
-      - "80:80"
-    depends_on:
-      - php
-    environment:
-      - MYSQL_USER=${ENV_MYSQL_USER}
-      - MYSQL_PASS=${ENV_MYSQL_PASS}
-
   # Application service layer
   php:
     build:
@@ -21,9 +8,12 @@ services:
       - "./app:/var/www/html"
       - "./php/config/php.ini:/usr/local/etc/php/php.ini"
     ports:
-      - "9000:9000"
+      - "80:80"
     depends_on:
       - mysql
+    environment:
+      - MYSQL_USER=${ENV_MYSQL_USER}
+      - MYSQL_PASS=${ENV_MYSQL_PASS}
   
   # Data persistence service layer
   mysql:
